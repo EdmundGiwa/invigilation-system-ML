@@ -185,7 +185,8 @@ const FaceDetectionComponent: React.FC<FaceDetectionComponentProps> = ({ videoRe
     const runFaceDetection = async () => {
       await setupBackends();
       const faceModel = await faceDetection.createDetector(faceDetection.SupportedModels.MediaPipeFaceDetector, {
-        runtime: 'tfjs'
+        runtime: 'tfjs',
+        maxFaces: 3,
       });
       const objectModel = await cocoSsd.load();
 
@@ -196,7 +197,6 @@ const FaceDetectionComponent: React.FC<FaceDetectionComponentProps> = ({ videoRe
 
           setFacesDetected(faces.length);
           setObjectsDetected(objects);
-
           if (faces.length === 0) {
             setNoFaceDetected(true);
           } else {
